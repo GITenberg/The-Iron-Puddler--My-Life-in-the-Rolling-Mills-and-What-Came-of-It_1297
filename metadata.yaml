@@ -1,0 +1,28 @@
+_repo: The-Iron-Puddler--My-Life-in-the-Rolling-Mills-and-What-Came-of-It_1297
+_version: 0.0.1
+creator:
+  author:
+    agent_name: Davis, James J. (James John)
+    alias: Davis, James John
+    birthdate: 1873
+    deathdate: 1947
+    gutenberg_agent_id: '589'
+    url: http://www.gutenberg.org/2009/agents/589
+    wikipedia: http://en.wikipedia.org/wiki/James_J._Davis
+description: ''
+gutenberg_issued: '1998-05-01'
+gutenberg_type: Text
+identifiers:
+  gutenberg: '1297'
+language: en
+publisher: Project Gutenberg
+rights: Public domain in the USA.
+rights_url: http://creativecommons.org/about/pdm
+subjects:
+- !lcc 'HD'
+- !lcsh 'Davis, James J. (James John), 1873-1947'
+- !lcsh 'Labor unions -- United States'
+- !lcsh 'Blue collar workers -- United States -- Biography'
+- GITenberg
+title: 'The Iron Puddler: My Life in the Rolling Mills and What Came of It'
+url: http://www.gutenberg.org/ebooks/1297
