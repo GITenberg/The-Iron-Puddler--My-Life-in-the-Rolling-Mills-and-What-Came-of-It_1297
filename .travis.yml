@@ -1,0 +1,61 @@
+sudo: required
+dist: trusty
+language: ruby
+
+before_install:
+before_install:
+- gem install asciidoctor -v 1.5.2
+- gem install tilt
+- sudo pip install git+https://github.com/gitenberg-dev/gitberg
+- sudo pip install pillow
+- sudo pip install cssutils
+- sudo pip install docutils
+- sudo pip install roman
+- sudo pip install git+https://github.com/gitenberg-dev/pg-epubmaker
+script:
+- VERSION=`ruby -e "require 'yaml'; meta = YAML.load_file('metadata.yaml'); puts meta['_version'];"`
+- git clone https://github.com/gitenberg-dev/asciidoctor-htmlbook.git
+- sudo pip install -r asciidoctor-htmlbook/gitberg-machine/requirements.txt
+
+- /usr/bin/python -c "from gitenberg import travis; travis.build_epub()"
+- ebook-convert book.epub book.mobi
+- xvfb-run ebook-convert book.epub book.pdf
+branches:
+  only:
+  - master
+notifications:
+  webhooks:
+    urls:
+      - https://unglue.it/api/travisci/webhook
+    on_success: always
+    on_failure: never
+    on_start: never
+deploy:
+  skip_cleanup: true
+  provider: releases
+  api_key:
+    secure: FUVJs+ia7Z/lEtqQddwbhu3pLdBWIg2oSURn7Ts6sAv8c+x7j8/LfWp842ZhJaJmFZJbW5igSVo4F3rFxBYr7t/qmJdANBX5BbqqxoJquYUZJ/UEK3zAvSoj/PVMea95eudFFtziBi8Kt2aBXvw3gORTLdtbAb37zR/BmRU7/jN9r6DvcB7RAnt7zZ5iCDDm8gQunjEKAofUKVlpHTJ5SSAEh00kEwaVrCN1Q7GcSJOonHaNl+2Xxc+KoD3tJ7PYBc18KeC48OEq2yf76bEkCZWeYmqkHJGOdFFG6U4+lE2XNeQYiOzzYM9F+8F2GloYK5tdm9xZU1ALTb3wmrfM1ObGaXnty1Lggfgzzwjb4gcn1GhJSrLHyhxHzaA3+SqvUD/RhF1G7mpvcnrY2NZcUvN9iNbbUH5/mBU/zZ+k4vBt8zAHL2M7VQVUytm/CdaHdyvpVf6XVeXKOKjnIIprUvWsJO5VWOb3vFjEq22wPO0P0mR85XuDa6qDl7UdsLaT+4yBtxfuxyR+PJpQuGCttOEqmAITqztAS0MlE4OkM9ockFA9AKU6XZFJk59k+iM2MjnJn79N/aEl4bO8jYRw8oydmk9PY8YKfR7IufLv9Hp6bR00dUMYurW5Z9c9xQS+ZEvFNBa75HQuW6UIM36qz3cvPRww02ceGd6yVMC/NwU=
+  file:
+    - book.epub
+    - book.mobi
+    - book.pdf
+  "on":
+    repo: GITenberg/The-Iron-Puddler--My-Life-in-the-Rolling-Mills-and-What-Came-of-It_1297
+addons:
+  apt:
+    packages:
+    - xsltproc
+    - xvfb
+    - calibre
+    - python-pip
+    - git
+    - python-dev
+    - libjpeg-dev
+    - libpng-dev
+    - libfreetype6
+    - libfreetype6-dev
+    - zlib1g-dev
+    - python-lxml
+    - libxml2-dev
+    - libxslt1-dev
+    - tidy
